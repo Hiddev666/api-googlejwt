@@ -39,7 +39,7 @@ app.get("/auth/google/callback",
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" })
 
         res.cookie("token", token, {
-            httpOnly: true,
+            httpOnly: false,
             secure: true, // penting di Vercel
             sameSite: "None", // wajib buat cross-site
             maxAge: 24 * 60 * 60 * 1000
