@@ -38,7 +38,12 @@ app.get("/auth/google/callback",
 
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" })
 
-        res.cookie("token", token)
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true, // penting di Vercel
+            sameSite: "None", // wajib buat cross-site
+            maxAge: 24 * 60 * 60 * 1000
+        })
 
         res.redirect(`${process.env.FRONTEND_URL}/dashboard`)
     }
@@ -56,6 +61,7 @@ app.get("/api/user", (req, res) => {
 
     try {
         const decoded = jwt.verify(jwtToken, process.env.JWT_SECRET)
+        console.log("[DEBUG] TOKEN VERIFIED!", jwtToken)
         res.json(decoded)
     } catch (err) {
         res.status(403).json({ message: "Invalid token" })
