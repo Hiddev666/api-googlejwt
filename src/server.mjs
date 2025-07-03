@@ -43,7 +43,8 @@ app.get("/auth/google/callback",
             secure: true, // penting di Vercel
             sameSite: "None", // wajib buat cross-site
             maxAge: 24 * 60 * 60 * 1000,
-            path: "/"
+            path: "/",
+            domain: "gamify-hiddev.vercel.app"
         })
 
         res.redirect(`${process.env.FRONTEND_URL}/dashboard`)
