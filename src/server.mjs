@@ -42,7 +42,8 @@ app.get("/auth/google/callback",
             httpOnly: false,
             secure: true, // penting di Vercel
             sameSite: "None", // wajib buat cross-site
-            maxAge: 24 * 60 * 60 * 1000
+            maxAge: 24 * 60 * 60 * 1000,
+            path: "/"
         })
 
         res.redirect(`${process.env.FRONTEND_URL}/dashboard`)
